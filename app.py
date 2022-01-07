@@ -4,7 +4,7 @@ from werkzeug.utils import secure_filename
 
 import src
 
-UPLOAD_FOLDER = './uploaded_temp'
+UPLOAD_FOLDER = './test_data'
 FILLED_PPTX = 'filled template.pptx'
 ALLOWED_EXTENSIONS = {'pptx', 'xlsx'}
 
