@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
+
+	<title>Autofill PPTX template</title>
+</head>
+
+<body>
+<h1 align=center>Autofill PPTX template</h1>
+
+<form method=post enctype=multipart/form-data>
+	<div class="container mt-4">
+		<div class="row gy-4">
+		  <div class="col-lg-6">
+			<div class="box p-3 border bg-light">
+				<h5>Template file</h5>
+				<label for="file1">Choose PPTX template file:</label>
+				<input type=file name=file1 value="Add to favorites">
+				<p style="font-size: small; color:green">It should be one-slider pptx file with text fields filled with names corresponding to excel file</p>
+			</div>
+		  </div>
+		  <div class="col-lg-6">
+			<div class="box p-3 border bg-light">
+				<h5>Data file</h5>
+				<label for="file1">Choose Excel data file:</label>
+				<input type=file name=file2 value="Add to favorites">
+				<p style="font-size: small; color:green">It should be one-sheet Excel file with single-raw header with column names corresponding to template fields and rows corresponding to individual items (slides)</p>
+			</div>
+		  </div>
+		</div> 
+
+		<div class="row">
+		  <div class="col">
+			<div class="box p-3" align=center>
+				<input type=submit value="Process and download filled presentation">
+			</div>
+		  </div>
+		</div>
+	</div>
+</form>
+</body>
+</html>
