@@ -2,7 +2,9 @@ import os
 from flask import Flask, flash, request, redirect, url_for, render_template, send_from_directory
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = r'C:\Users\Andrey\code\pet_projects\form_autofill\uploaded_temp'
+import src
+
+UPLOAD_FOLDER = './uploaded_temp'
 FILLED_PPTX = 'filled template.pptx'
 ALLOWED_EXTENSIONS = {'pptx', 'xlsx'}
 
@@ -17,7 +19,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@app.route('/home', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         
@@ -43,7 +45,6 @@ def upload_file():
             file2.save(os.path.join(app.config['UPLOAD_FOLDER'], filename2))
 
             print('ad')
-            import src
 
             pres = src.read_presentation(os.path.join(app.config['UPLOAD_FOLDER'], filename1))
             data = src.read_data(os.path.join(app.config['UPLOAD_FOLDER'], filename2))
