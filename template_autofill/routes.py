@@ -1,17 +1,17 @@
 import os
-from flask import Flask, flash, request, redirect, url_for, render_template, send_from_directory
+from flask import Flask, Blueprint, flash, current_app, request, redirect, url_for, render_template, send_from_directory
 from werkzeug.utils import secure_filename
 
-import src
+from template_autofill import src
 
-UPLOAD_FOLDER = './test_data'
-FILLED_PPTX = 'filled template.pptx'
+print(os.getcwd())
+
+UPLOAD_FOLDER = os.path.join(os.getcwd(), 'instance', 'uploaded_files')
+FILLED_PPTX = 'filled_template.pptx'
 ALLOWED_EXTENSIONS = {'pptx', 'xlsx'}
 
 
-app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.secret_key = 'super secret key'
+bp = Blueprint("routes", __name__)
 
 
 def allowed_file(filename):
@@ -19,8 +19,13 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@app.route('/', methods=['GET', 'POST'])
+@bp.route('/', methods=['GET', 'POST'])
 def upload_file():
+    try:
+        os.mkdir(UPLOAD_FOLDER)
+    except Exception as e:
+        print(e)
+    
     if request.method == 'POST':
         
         if ('file1' not in request.files) or ('file2' not in request.files):
@@ -41,32 +46,27 @@ def upload_file():
             flash('Files seen!')
             filename1 = secure_filename(file1.filename)
             filename2 = secure_filename(file2.filename)
-            file1.save(os.path.join(app.config['UPLOAD_FOLDER'], filename1))
-            file2.save(os.path.join(app.config['UPLOAD_FOLDER'], filename2))
+            file1.save(os.path.join(UPLOAD_FOLDER, filename1))
+            file2.save(os.path.join(UPLOAD_FOLDER, filename2))
 
             print('ad')
 
-            pres = src.read_presentation(os.path.join(app.config['UPLOAD_FOLDER'], filename1))
-            data = src.read_data(os.path.join(app.config['UPLOAD_FOLDER'], filename2))
+            pres = src.read_presentation(os.path.join(UPLOAD_FOLDER, filename1))
+            data = src.read_data(os.path.join(UPLOAD_FOLDER, filename2))
             print('aa')
             new_pres = src.fill_pres_with_data(pres, data)
-            src.save_presentation(new_pres, os.path.join(app.config['UPLOAD_FOLDER'], FILLED_PPTX))
+            src.save_presentation(new_pres, os.path.join(UPLOAD_FOLDER, FILLED_PPTX))
             print('cc')
             
-            return redirect(url_for('download_file', name=FILLED_PPTX))
+            return redirect(url_for('routes.download_file', name=FILLED_PPTX))
         
     return render_template('index1.html')
 
 
-app.add_url_rule(
-    "/uploads/<name>", endpoint="download_file", build_only=True
-)
-
-@app.route('/uploads/<name>')
+@bp.route('/download_file/<name>')
 def download_file(name):
-    return send_from_directory(app.config["UPLOAD_FOLDER"], name)
+    return send_from_directory(UPLOAD_FOLDER, name)
 
 
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+#if __name__ == '__main__':
+#    app.run(host='0.0.0.0')
