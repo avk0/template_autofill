@@ -1,3 +1,6 @@
+"""Instruction how to upload files https://flask.palletsprojects.com/en/2.0.x/patterns/fileuploads/"""
+
+
 import os
 from flask import Flask, Blueprint, flash, current_app, request, redirect, url_for, render_template, send_from_directory
 from werkzeug.utils import secure_filename
