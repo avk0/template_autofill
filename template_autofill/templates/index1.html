@@ -11,6 +11,16 @@
 <body>
 <h1 align=center>Autofill PPTX template</h1>
 
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
 <form method=post enctype=multipart/form-data>
 	<div class="container mt-4">
 		<div class="row gy-4">
@@ -18,7 +28,7 @@
 			<div class="box p-3 border bg-light">
 				<h5>Template file</h5>
 				<label for="file1">Choose PPTX template file:</label>
-				<input type=file name=file1 value="Add to favorites">
+				<input type=file accept=".ppt,.pptx" name=file1 value="Add to favorites">
 				<p style="font-size: small; color:green">It should be one-slider pptx file with text fields filled with names corresponding to excel file</p>
 			</div>
 		  </div>
@@ -26,7 +36,7 @@
 			<div class="box p-3 border bg-light">
 				<h5>Data file</h5>
 				<label for="file1">Choose Excel data file:</label>
-				<input type=file name=file2 value="Add to favorites">
+				<input type=file accept=".xls,.xlsx" name=file2 value="Add to favorites">
 				<p style="font-size: small; color:green">It should be one-sheet Excel file with single-raw header with column names corresponding to template fields and rows corresponding to individual items (slides)</p>
 			</div>
 		  </div>
