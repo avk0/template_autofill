@@ -4,7 +4,6 @@
 import os
 
 from flask import Flask
-
 from template_autofill import routes
 
 

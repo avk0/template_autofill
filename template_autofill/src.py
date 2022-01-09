@@ -1,6 +1,7 @@
-from pptx import Presentation
-import pandas as pd
 import copy
+
+import pandas as pd
+from pptx import Presentation
 
 
 def read_presentation(path):
