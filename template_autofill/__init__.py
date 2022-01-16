@@ -1,9 +1,9 @@
 """ This is a copy from https://flask.palletsprojects.com/en/2.0.x/tutorial/factory/"""
 
-
 import os
 
 from flask import Flask
+
 from template_autofill import routes
 
 
@@ -28,7 +28,7 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
+    # a simple test page that says hello
     @app.route('/hello')
     def hello():
         return 'Hello, World!'
