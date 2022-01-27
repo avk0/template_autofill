@@ -25,7 +25,7 @@
 </head>
 
 <body>
-<h1 align=center>Autofill PPTX template</h1>
+<h1 align='center' style="margin-top: 2%">Autofill PPTX template</h1>
 
 {% with messages = get_flashed_messages() %}
   {% if messages %}
@@ -37,32 +37,43 @@
   {% endif %}
 {% endwith %}
 
-<form method=post enctype=multipart/form-data>
+<form method='post' enctype='multipart/form-data'>
 	<div class="container mt-4">
 		<div class="row gy-4">
 		  <div class="col-lg-6">
-			<div class="box p-3 border bg-light">
-				<label for="file1">Choose PPTX template file</label>
-				<input type=file accept=".ppt,.pptx" name=file1 value="Add to favorites">
-				<p style="font-size: small; color:green">It should be one-slider pptx file with text fields filled with names corresponding to excel file</p>
+			<div class="box p-3">
+				<img class="box_img" src="static/img/pptx.png"/>
+                <h2 style="color: #F0836A">PowerPoint template</h1>
+				<p class="box_text">It should be one-slider ppt or pptx file with text fields filled with names corresponding to excel file columns</p>
+				<label for="file1-upload" class="box_btn" style="color: #F0836A">
+                      Load PowerPoint file
+                </label>
+				<input id="file1-upload" type='file' accept=".ppt,.pptx" name='file1' value="Add to favorites">
 			</div>
 		  </div>
 		  <div class="col-lg-6">
-			<div class="box p-3 border bg-light">
-				<label for="file2">Choose Excel data file</label>
-				<input type=file accept=".xls,.xlsx" name=file2 value="Add to favorites">
-				<p style="font-size: small; color:green">It should be one-sheet Excel file with single-raw header with column names corresponding to template fields and rows corresponding to individual items (slides)</p>
+            <div class="box p-3">
+				<img class="box_img" src="static/img/exel.png"/>
+				<h2 style="color: #66c074">Excel data</h1>
+				<p class="box_text">It should be one-sheet Excel file with column names corresponding to template fields and rows corresponding to individual items (slides)</p>
+				<label for="file2-upload" class="box_btn" style="color: #66c074">
+				  Load Excel file
+				</label>
+				<input id="file2-upload" type='file' accept=".xls,.xlsx" name="file2" value="Add to favorites"> 
 			</div>
 		  </div>
 		</div> 
 
 		<div class="row">
 		  <div class="col">
-			<div class="box p-3" align=center>
-				<input type=submit value="Process and download filled PPT presentation as zip file">
-			</div>
+			  <div class="p-3" align=center>
+				<label for="file" class="box_btn box_btn_submit">
+			  		Try for free!
+			  	</label>
+			  	<input id="file" type='submit' name="file" value="Process and download filled PPT presentation as zip file">
+			  </div>
 		  </div>
-		
+		</div>
 	</div>
 </form>
 </body>
