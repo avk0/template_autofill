@@ -59,7 +59,7 @@ def upload_file():
             
             return redirect(url_for('routes.download_file', name=FILLED_SEPARATE_PPT+'.zip'))
         
-    return render_template('index.html')
+    return render_template('index1.html')
     
 
 @bp.route('/download_file/<name>')

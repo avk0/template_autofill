@@ -25,7 +25,7 @@
 </head>
 
 <body>
-<h1 align='center' style="margin-top: 2%">Autofill PPTX template</h1>
+<h1 align="center" style="margin-top: 2%">Autofill PPTX template</h1>
 
 {% with messages = get_flashed_messages() %}
   {% if messages %}
@@ -37,7 +37,7 @@
   {% endif %}
 {% endwith %}
 
-<form method='post' enctype='multipart/form-data'>
+<form method="post" enctype="multipart/form-data">
 	<div class="container mt-4">
 		<div class="row gy-4">
 		  <div class="col-lg-6">
@@ -48,7 +48,7 @@
 				<label for="file1-upload" class="box_btn" style="color: #F0836A">
                       Load PowerPoint file
                 </label>
-				<input id="file1-upload" type='file' accept=".ppt,.pptx" name='file1' value="Add to favorites">
+				<input id="file1-upload" type="file" accept=".ppt,.pptx" name="file1" value="Add to favorites">
 			</div>
 		  </div>
 		  <div class="col-lg-6">
@@ -59,7 +59,7 @@
 				<label for="file2-upload" class="box_btn" style="color: #66c074">
 				  Load Excel file
 				</label>
-				<input id="file2-upload" type='file' accept=".xls,.xlsx" name="file2" value="Add to favorites"> 
+				<input id="file2-upload" type="file" accept=".xls,.xlsx" name="file2" value="Add to favorites"> 
 			</div>
 		  </div>
 		</div> 
@@ -70,7 +70,7 @@
 				<label for="file" class="box_btn box_btn_submit">
 			  		Download filled presentation for free!
 			  	</label>
-			  	<input id="file" type='submit' name="file" value="Process and download filled PPT presentation as zip file">
+			  	<input id="file" type="submit" name="file" value="Process and download filled PPT presentation as zip file">
 			  </div>
 		  </div>
 		</div>
