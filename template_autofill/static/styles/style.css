@@ -4,25 +4,6 @@
     box-sizing: border-box;
 }
 
-/*
-.box{
-    height:100%;
-    display: flex;
-    justify-content: space-between;
-    line-height: 1.5;
-    list-style: none;
-    outline: 0;
-    box-sizing: inherit;
-    margin: 0;
-    border: 0;
-    vertical-align: baseline;
-    display: flex;
-    flex-direction: column;
-    padding: 35px 15px 25px;
-    margin-bottom: 50px;
-}
-*/
-
 .box {
     text-align: center;
     border-radius: 20px;
@@ -38,7 +19,7 @@
     color: gray;
     font-size: small;
 }
-
+    
 .box_btn {
     border: 1px solid #ccc;
     display: inline-block;
@@ -54,7 +35,7 @@
 .box_btn_submit {
     padding: 1% 5%;
     min-width: 210px;
-	color: #fff;
+    color: #fff;
     background-color: #66c074;
     border: 1px solid #66c074;
 }
@@ -69,7 +50,7 @@ input[type="submit"] {
 
 .box_img {
     width: 20%;
-	margin-top: 0%;
-	margin-bottom: 5%;
+    margin-top: 0%;
+    margin-bottom: 5%;
 }
 
