@@ -7,10 +7,9 @@ from template_autofill import src
 from datetime import datetime
 
 
-UPLOAD_FOLDER = os.path.join(os.getcwd(), 'instance', 'uploaded_files')
-RESULTS_FOLDER = os.path.join(os.getcwd(), 'instance', 'processed_files')
-RESULTS_ZIP_FOLDER = os.path.join(os.getcwd(), 'instance', 'zip_archive')
-
+UPLOAD_FOLDER = os.path.join(current_app.instance_path, 'uploaded_files')
+RESULTS_FOLDER = os.path.join(current_app.instance_path, 'processed_files')
+RESULTS_ZIP_FOLDER = os.path.join(current_app.instance_path, 'zip_archive')
 
 FILLED_ONE_PPT = 'filled_one_ppt.pptx'
 FILLED_SEPARATE_PPT = 'filled_separate_ppt'
@@ -26,6 +25,7 @@ def get_timestamp():
 
 @bp.route('/', methods=['GET', 'POST'])
 def upload_file():
+    print(UPLOAD_FOLDER)
     os.makedirs(UPLOAD_FOLDER, exist_ok=True)
     os.makedirs(RESULTS_FOLDER, exist_ok=True)
     
@@ -44,7 +44,6 @@ def upload_file():
             file2.save(os.path.join(UPLOAD_FOLDER, filename2))
             
             try:
-                
                 pres = src.read_presentation(os.path.join(UPLOAD_FOLDER, filename1))
                 data = src.read_data(os.path.join(UPLOAD_FOLDER, filename2))
                 new_pres = src.fill_pres_with_data(pres, data)
