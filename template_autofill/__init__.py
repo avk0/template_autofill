@@ -5,8 +5,10 @@ import os
 from flask import Flask
 
 
+
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
+    app.config['SECRET_KEY'] = 'dfgdf65gfdg45k.12scd89.vgds22gyj888e22xcdr7895fgf'
 
     if test_config is None:
         app.config.from_pyfile('config.py', silent=True)
@@ -15,6 +17,8 @@ def create_app(test_config=None):
 
     try:
         os.makedirs(app.instance_path)
+        logs_folder = os.path.join(app.instance_path, 'log')
+        os.makedirs(logs_folder, exist_ok=True)
     except OSError:
         pass
 
