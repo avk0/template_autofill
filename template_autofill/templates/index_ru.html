@@ -25,7 +25,8 @@
 </head>
 
 <body>
-<h1 align="center" style="margin-top: 2%">Autofill PPTX template</h1>
+<a href='/en'> en</a>
+<h1 align="center" style="margin-top: 2%">Автозаполнение PPTX шаблона</h1>
 
 {% with messages = get_flashed_messages() %}
   {% if messages %}
@@ -43,10 +44,10 @@
           <div class="col-lg-6">
             <div class="box p-3">
                 <img class="box_img" src="static/img/pptx.png"/>
-                <h2 style="color: #F0836A">PowerPoint template</h1>
-                <p class="box_text">It should be one-slider ppt or pptx file with text fields filled with names corresponding to excel file columns</p>
+                <h2 style="color: #F0836A">PowerPoint шаблон</h1>
+                <p class="box_text"> Файл должен быть однослайдовым ppt или pptx документом с текстовыми полями соответствующими столбцам из excel файла</p>
                 <label for="file1-upload" class="box_btn" style="color: #F0836A">
-                      Load PowerPoint file
+                      Загрузить PowerPoint файл
                 </label>
                 <input id="file1-upload" type="file" accept=".ppt,.pptx" name="file1" value="Add to favorites">
             </div>
@@ -54,10 +55,10 @@
           <div class="col-lg-6">
             <div class="box p-3">
                 <img class="box_img" src="static/img/exel.png"/>
-                <h2 style="color: #66c074">Excel data</h1>
-                <p class="box_text">It should be one-sheet Excel file with column names corresponding to template fields and rows corresponding to individual items (slides)</p>
+                <h2 style="color: #66c074">Excel данные</h1>
+                <p class="box_text">Файл должен быть одностраничным Excel документом со столбцами соответствующими полям из шаблона и строками соответствующими индивидуальным значениям</p>
                 <label for="file2-upload" class="box_btn" style="color: #66c074">
-                  Load Excel file
+                  Загрузить Excel файл
                 </label>
                 <input id="file2-upload" type="file" accept=".xls,.xlsx" name="file2" value="Add to favorites"> 
             </div>
@@ -68,7 +69,7 @@
           <div class="col">
               <div class="p-3" align=center>
                 <label for="file" class="box_btn box_btn_submit">
-                      Download filled presentation for free!
+                      Скачать заполненную презентацию бесплатно!
                   </label>
                   <input id="file" type="submit" name="file" value="Process and download filled PPT presentation as zip file">
               </div>
