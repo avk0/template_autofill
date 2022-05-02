@@ -21,7 +21,7 @@ RESULTS_ZIP_FOLDER = os.path.join(current_app.instance_path, 'zip_archive')
 FILLED_ONE_PPT = 'filled_one_ppt.pptx'
 FILLED_SEPARATE_PPT = 'filled_separate_ppt'
 FILLED_ONE_PDF = 'filled_one_pdf.pdf'
-
+DEFAULT_LANG = 'en'
 SUPPORTED_LANG = ['en', 'ru']
 
 bp = Blueprint("routes", __name__)
@@ -31,7 +31,7 @@ def get_timestamp():
     return datetime.now().strftime("%Y.%m.%d_%H.%M.%S")
 
 
-def recursive_dir_size(path):
+def get_dir_size(path):
     size = 0
     for x in os.listdir(path):
         if not os.path.isdir(os.path.join(path, x)):
@@ -51,7 +51,7 @@ def remove_folder(dir_path):
 @bp.route('/')
 def index():
 
-    lang = 'en'
+    lang = DEFAULT_LANG
     if request.accept_languages:
         lang = request.accept_languages.best_match(SUPPORTED_LANG)
     return redirect(url_for('routes.upload_file', lang=lang))
@@ -68,7 +68,7 @@ def upload_file(lang):
         file1 = request.files['file1']
         file2 = request.files['file2']
 
-        log_folder_size = recursive_dir_size(LOG_FOLDER)
+        log_folder_size = get_dir_size(LOG_FOLDER)
         while log_folder_size > 10**9:
             dir_path = os.path.join(LOG_FOLDER, min(os.listdir(LOG_FOLDER)))
             remove_folder(dir_path)
@@ -78,9 +78,6 @@ def upload_file(lang):
         os.makedirs(upload_folder, exist_ok=True)
         session['folder'] = upload_folder
         session.modified = True
-
-        # results_folder = os.path.join(upload_folder, f'{randint(1, 1024)}')
-        # os.makedirs(results_folder, exist_ok=True)
 
         if file1 and file2:
             filename1 = secure_filename(file1.filename)
@@ -107,7 +104,7 @@ def upload_file(lang):
 
             return redirect(url_for('routes.download_file', tmp_dir=tmp_dir))
         
-    return render_template(f'index1_{lang}.html')
+    return render_template(f'index_{lang}.html')
     
 
 @bp.route('/download_file/<tmp_dir>')
@@ -125,6 +122,6 @@ def download_file(tmp_dir):
             attachment_filename='test.zip',
             mimetype='zip'
         )
-        # return send_from_directory(os.path.join(tmp_dir, 'zip'), path=FILLED_SEPARATE_PPT+'.zip')
+
     except FileNotFoundError:
         abort(404)
