@@ -6,7 +6,7 @@ import io
 from tempfile import mkdtemp
 
 from flask import after_this_request, Flask, session, Blueprint,\
-                  flash, current_app, request, redirect, url_for, render_template, send_file
+    flash, current_app, request, redirect, url_for, render_template, send_file
 from werkzeug.utils import secure_filename
 from template_autofill import src
 from datetime import datetime
@@ -17,14 +17,13 @@ LOG_FOLDER = os.path.join(current_app.instance_path, 'log')
 
 RESULTS_ZIP_FOLDER = os.path.join(current_app.instance_path, 'zip_archive')
 
-
 FILLED_ONE_PPT = 'filled_one_ppt.pptx'
 FILLED_SEPARATE_PPT = 'filled_separate_ppt'
 FILLED_ONE_PDF = 'filled_one_pdf.pdf'
 DEFAULT_LANG = 'en'
 SUPPORTED_LANG = ['en', 'ru']
 
-bp = Blueprint("routes", __name__)
+# ---------------------- utils ---------------------
 
 
 def get_timestamp():
@@ -61,10 +60,10 @@ def index():
 def upload_file(lang):
 
     if request.method == 'POST':
-        
+
         if ('file1' not in request.files) or ('file2' not in request.files):
             return redirect(request.url)
-        
+
         file1 = request.files['file1']
         file2 = request.files['file2']
 
@@ -74,7 +73,8 @@ def upload_file(lang):
             remove_folder(dir_path)
             log_folder_size = recursive_dir_size(LOG_FOLDER)
 
-        upload_folder = os.path.join(current_app.instance_path, 'log', get_timestamp())
+        upload_folder = os.path.join(
+            current_app.instance_path, 'log', get_timestamp())
         os.makedirs(upload_folder, exist_ok=True)
         session['folder'] = upload_folder
         session.modified = True
@@ -92,20 +92,24 @@ def upload_file(lang):
             os.makedirs(zip_folder, exist_ok=True)
 
             try:
-                pres = src.read_presentation(os.path.join(session['folder'], filename1))
-                data = src.read_data(os.path.join(session['folder'], filename2))
+                pres = src.read_presentation(
+                    os.path.join(session['folder'], filename1))
+                data = src.read_data(os.path.join(
+                    session['folder'], filename2))
                 new_pres = src.fill_pres_with_data(pres, data)
-                src.save_presentation(new_pres, os.path.join(preprocess_folder, FILLED_ONE_PPT))
+                src.save_presentation(new_pres, os.path.join(
+                    preprocess_folder, FILLED_ONE_PPT))
                 src.fill_sep_pres_with_data(pres, data, preprocess_folder)
-                src.save_files_as_zip(preprocess_folder, os.path.join(zip_folder, FILLED_SEPARATE_PPT))
+                src.save_files_as_zip(preprocess_folder, os.path.join(
+                    zip_folder, FILLED_SEPARATE_PPT))
             except Exception as e:
                 flash(str(e))
                 return redirect(url_for('routes.upload_file', lang=lang))
 
             return redirect(url_for('routes.download_file', tmp_dir=tmp_dir))
-        
+
     return render_template(f'index_{lang}.html')
-    
+
 
 @bp.route('/download_file/<tmp_dir>')
 def download_file(tmp_dir):

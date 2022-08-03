@@ -64,8 +64,11 @@
             };
 
             fetch("https://hr18t98khj.execute-api.eu-central-1.amazonaws.com/dev", requestOptions)
-              .then(response => response.text())
-              .then(result => alert(JSON.parse(result).body))
+              .then(dataWrappedByPromise => dataWrappedByPromise.text())
+              .then(data => {
+                //Redirect is the URL inside the text of the response promise
+                window.location.replace(JSON.parse(data).body)
+              })
               .catch(error => console.log('error', error));
           });
         }
