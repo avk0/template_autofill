@@ -4,8 +4,8 @@ Output is one filled joint presentation. \
 Can be tested on http://www.pptautofill.ru
 
 # Technical details
-Is written to be deployed to AWS Lambda functions, S3, API Gateway. \
-Based on python-pptx.
+Application based on event-driven architecture and can be deployed on AWS (uses services: Lambda, S3, API Gateway). \
+To work with PowerPoint files it uses python-pptx library.
 
 # Useful developement links
 Upload file from AWS Lambda to S3: https://www.youtube.com/watch?v=vXiZO1c5Sk0 \
