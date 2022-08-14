@@ -1,23 +1,23 @@
 import copy
-import os
-import shutil
+from io import BytesIO, StringIO
+from urllib.request import urlopen
 
 import pandas as pd
 from pptx import Presentation
+from xlsx2csv import Xlsx2csv
 
 
-def read_presentation(path):
-    return Presentation(path)
+def read_presentation(file):
+    return Presentation(BytesIO(file))
 
-
-def save_presentation(prs, path):
-    prs.save(path)
-
-
-def read_data(path):
-    df = pd.read_excel(path)
+    
+def read_excel(bytes):
+    buffer = StringIO()
+    Xlsx2csv(BytesIO(bytes), outputencoding="utf-8").convert(buffer)
+    buffer.seek(0)
+    df = pd.read_csv(buffer)
     return df
-
+    
 
 def replace_text_retaining_initial_formatting(shape, new_text):
     paragraph = shape.text_frame.paragraphs[0]
@@ -79,5 +79,9 @@ def fill_sep_pres_with_data(pres, data, path):
     return pres
 
 
+def save_presentation(prs, path):
+    prs.save(path)
+    
+    
 def save_files_as_zip(dir_name, zip_name):
     shutil.make_archive(zip_name, 'zip', dir_name)
