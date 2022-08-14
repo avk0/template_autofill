@@ -1,5 +1,6 @@
 import base64
 import boto3
+from datetime import datetime
 from io import BytesIO
 import json
 
@@ -16,6 +17,9 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'body': ''
     }
+    
+    file_prefix = datetime.now().strftime("data/%Y%m%d_%H%M%S%f")[:-3]
+    out_pres_name = file_prefix + '_single_out.pptx'
 
     # Save input files
     if 0:
@@ -50,33 +54,45 @@ def lambda_handler(event, context):
     file_b64 = event['file1']
     file_b64 = file_b64[file_b64.find(",")+1:]
     file = base64.b64decode(file_b64)
-    print('file read and decoded')
-    pres = src.read_presentation(file)
-    print('File1 read')
+    try:
+        pres = src.read_presentation(file)
+        print('PPT read')
+    except Exception as e:
+        print(e)
+        res['body'] += ', FAILED to read PowerPoint file'
     
     # Read excel file
 
     file_b64 = event['file2']
     file_b64 = file_b64[file_b64.find(",")+1:]
     bytes = base64.b64decode(file_b64)
-    
-    data = src.read_excel(bytes)
-    print('File2 read')
-
-    # Fill and save presentation with data as single file
+    try:
+        data = src.read_excel(bytes)
+        print('XLS read')
+    except Exception as e:
+        print(e)
+        res['body'] += ', FAILED to read Excel file'
+        
+    # Fill the presentation with data as single file
 
     try:
         new_pres = src.fill_pres_with_data(pres, data)
         print('PPT filled')
+    except Exception as e:
+        print(e)
+        res['body'] += ', FAILED to fill PPT'
+    
+    # Save presentation with data as single file
+    
+    try:
         s3_client = boto3.client('s3')
         
         res_fobj = BytesIO()
         new_pres.save(res_fobj)
         res_fobj.seek(0)
-        res_file_name = 'filled_pres5.pptx'
         
         s3_client.put_object(Bucket=bucket, 
-                            Key=res_file_name, 
+                            Key=out_pres_name, 
                             Body=res_fobj.read())
             
         #src.save_presentation(new_pres, 'tmp')
@@ -84,7 +100,7 @@ def lambda_handler(event, context):
         res['body'] += ', output PPT saved'
     except Exception as e:
         print(e)
-        res['body'] += ', FAILED output PPT'
+        res['body'] += ', FAILED to save PPT'
     
     # Save presentation as separate files in zip archive
 
@@ -107,7 +123,7 @@ def lambda_handler(event, context):
 
     res_url = s3_client.generate_presigned_url(
         'get_object',
-        Params={'Bucket': bucket, 'Key': res_file_name},
+        Params={'Bucket': bucket, 'Key': out_pres_name},
         ExpiresIn=1200)
 
     res = {'statusCode': 301, 'body': res_url}
