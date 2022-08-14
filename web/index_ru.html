@@ -1,15 +1,16 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 
   <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css"
       href="https://autofill-template-s3b.s3.eu-central-1.amazonaws.com/static/styles/style.css">
 
-    <title>Autofill PPTX template</title>
-
+    <title>Автозаполнение PPTX шаблона</title>
+    
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
       (function (m, e, t, r, i, k, a) {
@@ -77,21 +78,30 @@
     </script>
   </head>
 
-  <body>
-    <h1 align="center" style="margin-top: 2%">Autofill PPTX template</h1>
+<body>
 
-    <form method="post" enctype="multipart/form-data">
-      <div class="container mt-4">
+  <ul class="nav justify-content-end">
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/index.html">EN</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/index_ru.html">RU</a>
+    </li>
+  </ul>
+
+<h1 align="center" style="margin-top: 2%">Автозаполнение PPTX шаблона</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="container mt-4">
         <div class="row gy-4">
           <div class="col-lg-6">
             <div class="box p-3">
               <img class="box_img"
                 src="https://autofill-template-s3b.s3.eu-central-1.amazonaws.com/static/img/pptx.png" />
-              <h2 style="color: #F0836A">PowerPoint template</h1>
-                <p class="box_text">It should be one-slider ppt or pptx file with text fields filled with names
-                  corresponding to excel file columns</p>
+                <h2 style="color: #F0836A">PowerPoint шаблон</h1>
+                <p class="box_text"> Файл должен быть однослайдовым ppt или pptx документом с текстовыми полями соответствующими столбцам из excel файла</p>
                 <label for="file1" class="box_btn" style="color: #F0836A">
-                  Upload PowerPoint
+                      Загрузить PowerPoint файл
                 </label>
                 <input id="file1" type="file" accept=".ppt,.pptx">
             </div>
@@ -100,28 +110,28 @@
             <div class="box p-3">
               <img class="box_img"
                 src="https://autofill-template-s3b.s3.eu-central-1.amazonaws.com/static/img/exel.png" />
-              <h2 style="color: #66c074">Excel data</h1>
-                <p class="box_text">It should be one-sheet Excel file with column names corresponding to template fields
-                  and rows corresponding to individual items (slides)</p>
-                <label for="file2" class="box_btn" style="color: #F0836A">
-                  Upload Excel
+                <h2 style="color: #66c074">Excel данные</h1>
+                <p class="box_text">Файл должен быть одностраничным Excel документом со столбцами соответствующими полям из шаблона и строками соответствующими индивидуальным значениям</p>
+                <label for="file2" class="box_btn" style="color: #66c074">
+                  Загрузить Excel файл
                 </label>
                 <input id="file2" type="file" accept=".xls,.xlsx">
             </div>
           </div>
-        </div>
+        </div> 
 
         <div class="row">
           <div class="col">
             <div class="p-3" align=center>
-              <button type="button" class="box_btn box_btn_submit" onclick="callAPI()">Download filled presentation for
-                free!</button>
+              <button type="button" class="box_btn box_btn_submit" onclick="callAPI()">
+                      Скачать заполненную презентацию бесплатно!
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </form>
-
-  </body>
-
-</html>
+          </form>
+      
+        </body>
+      
+      </html>
