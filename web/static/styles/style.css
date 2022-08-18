@@ -48,3 +48,6 @@ input[type="submit"] {
     margin-bottom: 5%;
 }
 
+a {
+    color: rgba(128, 128, 128, 0.726);
+  }
