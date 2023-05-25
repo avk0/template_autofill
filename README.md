@@ -1,7 +1,7 @@
 # template_autofill 
 A web service that fills PPTX template with Excel data. \
 Output is one filled joint presentation. \
-Can be tested on http://www.pptautofill.ru
+[Not working, domain name expired] http://www.pptautofill.ru
 
 # Technical details
 Application based on event-driven architecture and can be deployed on AWS (uses services: Lambda, S3, API Gateway). \
